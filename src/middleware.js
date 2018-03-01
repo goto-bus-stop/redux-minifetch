@@ -43,7 +43,8 @@ export default function middleware (opts = {}) {
 
   function rejectNonOK (response) {
     if (!response.ok) {
-      return Promise.reject(onError(response))
+      return Promise.resolve(onError(response))
+        .then((err) => Promise.reject(err))
     }
     return response
   }
@@ -84,7 +85,7 @@ export default function middleware (opts = {}) {
       },
       credentials: 'same-origin',
       body: method !== 'get' ? JSON.stringify(data) : undefined
-    })
+    }, getState())
 
     if (onStart) {
       dispatch(onStart())
