@@ -20,20 +20,14 @@ function makeUrl (path, params = {}) {
   return uri
 }
 
-function rejectNonOK (response) {
-  if (response.status !== 200) {
-    return response.json().then((res) => {
-      if (!('errors' in res)) {
-        throw new Error('An unknown error occurred.')
-      }
-      const { errors } = res
-      const error = new Error(errors.map(err => err.title).join(', '))
-      error.response = response
-      error.errors = errors
-      throw error
-    })
-  }
-  return response
+function defaultConfigure (options) {
+  return options
+}
+
+function defaultOnError (response) {
+  const err = new Error(response.statusText)
+  err.response = response
+  return err
 }
 
 export default function middleware (opts = {}) {
@@ -41,10 +35,18 @@ export default function middleware (opts = {}) {
     ? opts.baseUrl.replace(/\/$/, '')
     : ''
 
-  const configure = opts.configure || ((requestOptions) => requestOptions)
+  const configure = opts.configure || defaultConfigure
   const fetch = opts.fetch || global.fetch
+  const onError = opts.onError || defaultOnError
 
   if (!fetch) throw new TypeError('redux-minifetch: must provide a `fetch` function or define it globally')
+
+  function rejectNonOK (response) {
+    if (!response.ok) {
+      return Promise.reject(onError(response))
+    }
+    return response
+  }
 
   return ({ dispatch, getState }) => (next) => (action) => {
     if (action.type !== REQUEST_START) {

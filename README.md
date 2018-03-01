@@ -21,14 +21,12 @@ npm install redux-minifetch
 
 ## Usage
 
-Add the middleware and redux-thunk to your store:
+Add the middleware to your store:
 
 ```js
-var thunk = require('redux-thunk')
 var minifetch = require('redux-minifetch').middleware
 
 var middleware = applyMiddleware(
-  thunk(),
   minifetch({ baseUrl: 'https://mywebsite.com/api/' })
 )
 
