@@ -1,0 +1,35 @@
+{
+  "name": "redux-minifetch",
+  "description": "small composable HTTP requests for redux actions",
+  "version": "0.0.0",
+  "author": "Renée Kooi <renee@kooi.me>",
+  "bugs": {
+    "url": "https://github.com/goto-bus-stop/redux-minifetch/issues"
+  },
+  "devDependencies": {
+    "redux": "^3.7.2",
+    "rollup": "^0.56.3",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "standard": "^11.0.0",
+    "tap-spec": "^4.0.2",
+    "tape": "^4.0.0"
+  },
+  "homepage": "https://github.com/goto-bus-stop/redux-minifetch",
+  "keywords": [],
+  "license": "Apache-2.0",
+  "main": "dist/redux-minifetch.cjs.js",
+  "module": "dist/redux-minifetch.es.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goto-bus-stop/redux-minifetch.git"
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "rollup -c",
+    "test": "standard && tape test/*.js | tap-spec"
+  },
+  "dependencies": {
+    "qs-stringify": "^1.1.0"
+  }
+}
