@@ -75,8 +75,15 @@ A [fetch](https://mdn.io/fetch) function. Defaults to the global `fetch`. You ca
 
 A function to change the request options before they are passed to `fetch`. You can use this to set CSRF headers or authentication tokens for example. Return the changed options.
 
+### `onError(response)`
+
+A function to extract the error data from a failed response. A response is failed when its status code is not 2xx ([`Response.ok`](https://developer.mozilla.org/en-US/docs/Web/API/Response/ok)). `onError` should return an Error instance or a Promise that _resolves_ to an Error instance. The result of this function will be passed to the `onError` handlers on individual [requests](#request).
+
+The default `onError` implementation returns `new Error(response.statusText)`.
+
 ## Actions
 
+<a id="request"></a>
 ### `request(method, url, opts)`
 
 Create a new request. `method` is the HTTP method; `url` is the URL, which will be appended to the `baseUrl` option.
