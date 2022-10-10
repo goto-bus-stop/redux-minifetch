@@ -7,7 +7,7 @@
     "url": "https://github.com/goto-bus-stop/redux-minifetch/issues"
   },
   "devDependencies": {
-    "@rollup/plugin-buble": "^0.21.1",
+    "@rollup/plugin-buble": "^1.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "redux": "^4.0.5",
     "rollup": "^2.0.0",
